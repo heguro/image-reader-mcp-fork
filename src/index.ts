@@ -196,7 +196,7 @@ server.addTool({
 
 server.addTool({
   name: 'get_image_size',
-  description: 'Gets the width and height of a specific image file.',
+  description: 'Gets the width and height of an original image file.',
   parameters: z.object({
     filePath: z.string().describe('The absolute path to the image file to inspect.'),
   }),
@@ -265,4 +265,4 @@ server.start({
   // },
 });
 
-console.log('Image Reader MCP Server started.'); 
+process.stderr.write(`Image Reader MCP Server started.${process.platform === 'win32' ? '\r\n' : '\n'}`);
