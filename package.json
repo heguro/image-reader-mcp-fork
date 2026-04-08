@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "fastmcp": "^1.23.2",
+    "sharp": "^0.34.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {
