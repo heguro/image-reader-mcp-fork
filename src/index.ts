@@ -85,7 +85,7 @@ function parseCropValue(value: CropValue, basis: number, fieldName: string): num
     return value;
   }
 
-  const trimmedValue = value.trim().toLowerCase();
+  const trimmedValue = value.trim().replace(/^["']|["']$/g, '').toLowerCase();
   const percentMatch = trimmedValue.match(/^(\d+(?:\.\d+)?)%$/);
 
   if (percentMatch) {
@@ -216,7 +216,7 @@ server.addTool({
   description: `Returns a specific image content`,
   parameters: z.object({
     filePath: z.string().describe('The absolute path to the image file to read.'),
-    x: cropValueSchema.optional().describe('The crop x coordinate in px (number) or % (string like `"50.5%"`)'),
+    x: cropValueSchema.optional().describe('The crop x coordinate in px (ex. 500) or % (ex. `"50.5%"`)'),
     y: cropValueSchema.optional().describe('The crop y coordinate in px or %'),
     width: cropValueSchema.optional().describe('The crop width in px or %'),
     height: cropValueSchema.optional().describe('The crop height in px or %'),
