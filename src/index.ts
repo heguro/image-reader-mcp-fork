@@ -1,6 +1,5 @@
 import { FastMCP, imageContent, UserError } from 'fastmcp';
 import { z } from 'zod';
-import fs from 'node:fs/promises';
 import path from 'node:path';
 import sharp, { type Metadata } from 'sharp';
 
@@ -162,37 +161,6 @@ async function transformImage(filePath: string, cropRegion: CropRegion | undefin
 
   return pipeline.toBuffer();
 }
-
-// Tool to list images in a directory
-server.addTool({
-  name: 'list_images',
-  description: 'List image files in a specified directory.',
-  parameters: z.object({
-    directoryPath: z.string().describe('The absolute path to the directory to scan for images.'),
-  }),
-  execute: async (args) => {
-    try {
-      const entries = await fs.readdir(args.directoryPath, { withFileTypes: true });
-      const imageFiles = entries
-        .filter(entry => entry.isFile() && imageExtensions.has(path.extname(entry.name).toLowerCase()))
-        .map(entry => entry.name);
-
-      if (imageFiles.length === 0) {
-        return 'No image files found in the specified directory.';
-      }
-      return `Image files found:\n${imageFiles.join('\n')}`;
-    } catch (error: any) {
-      if (error.code === 'ENOENT') {
-        throw new UserError(`Directory not found: ${args.directoryPath}`);
-      }
-      if (error.code === 'EACCES') {
-        throw new UserError(`Permission denied to access directory: ${args.directoryPath}`);
-      }
-      console.error('Error listing images:', error); // Log unexpected errors
-      throw new UserError(`Failed to list images in directory: ${error.message}`);
-    }
-  },
-});
 
 server.addTool({
   name: 'get_image_size',

@@ -2,7 +2,6 @@
 
 A simple MCP server built with FastMCP that provides tools to:
 
-- List image files in a specified directory.
 - Get the size of an image.
 - Read a specific image file and return its content.
 
@@ -10,14 +9,6 @@ A simple MCP server built with FastMCP that provides tools to:
 ## Tools
 
 This server provides the following tools:
-
-### `list_images`
-
-*   **Description:** List image files in a specified directory.
-*   **Parameters:**
-    *   `directoryPath` (string): The absolute path to the directory to scan for images.
-*   **Returns:** A list of image filenames found in the directory or a message indicating no images were found.
-*   **Supported Extensions:** `.jpg`, `.jpeg`, `.png`, `.gif`, `.bmp`, `.webp`, `.svg`
 
 ### `read_image`
 
